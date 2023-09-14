@@ -22,6 +22,8 @@ Right [here](https://dkennedy.io/motivationator).
 * Tutorial
 * Import/export JSON
 * Unit tests
+* Prompt to confirm delete
+* Make it look nice
 
 ## Disclaimer
 

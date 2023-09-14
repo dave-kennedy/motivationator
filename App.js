@@ -64,10 +64,12 @@ export default class App extends HTMLElement {
         this.addEventListener('GOAL_SAVED', _ => this.#refresh());
         this.addEventListener('GOAL_COMPLETED', _ => this.#refresh());
         this.addEventListener('GOAL_UNCOMPLETED', _ => this.#refresh());
+        this.addEventListener('GOAL_DELETED', _ => this.#refresh());
 
         this.addEventListener('REWARD_SAVED', _ => this.#refresh());
         this.addEventListener('REWARD_REDEEMED', _ => this.#refresh());
         this.addEventListener('REWARD_UNREDEEMED', _ => this.#refresh());
+        this.addEventListener('REWARD_DELETED', _ => this.#refresh());
 
         window.addEventListener('hashchange', _ => this.#refresh());
     }

@@ -60,6 +60,13 @@ export default class Goal extends HTMLElement {
         });
 
         $row.appendChild($editButton);
+
+        const $deleteButton = new Button({
+            text: 'Delete',
+            click: _ => this.#delete(),
+        });
+
+        $row.appendChild($deleteButton);
     }
 
     #complete() {
@@ -100,6 +107,18 @@ export default class Goal extends HTMLElement {
     #edit() {
         const $editor = new GoalEditor(this.#data);
         this.shadowRoot.appendChild($editor);
+    }
+
+    #delete() {
+        if (this.#data.completed) {
+            const date = this.#data.completed.slice(0, 10);
+            HistoryData.remove(date, this.#data);
+        } else {
+            GoalsData.remove(this.#data);
+        }
+
+        const event = new Event('GOAL_DELETED', {composed: true});
+        this.shadowRoot.dispatchEvent(event);
     }
 }
 

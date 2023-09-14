@@ -60,6 +60,13 @@ export default class Reward extends HTMLElement {
         });
 
         $row.appendChild($editButton);
+
+        const $deleteButton = new Button({
+            text: 'Delete',
+            click: _ => this.#delete(),
+        });
+
+        $row.appendChild($deleteButton);
     }
 
     #redeem() {
@@ -100,6 +107,18 @@ export default class Reward extends HTMLElement {
     #edit() {
         const $editor = new RewardEditor(this.#data);
         this.shadowRoot.appendChild($editor);
+    }
+
+    #delete() {
+        if (this.#data.redeemed) {
+            const date = this.#data.redeemed.slice(0, 10);
+            HistoryData.remove(date, this.#data);
+        } else {
+            RewardsData.remove(this.#data);
+        }
+
+        const event = new Event('REWARD_DELETED', {composed: true});
+        this.shadowRoot.dispatchEvent(event);
     }
 }
 
